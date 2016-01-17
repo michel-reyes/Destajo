@@ -453,6 +453,11 @@ $('body').on('click', ".comando-periodo-apertura", function(e) {
  */ 
 $(".comando-periodo-cierre").click(function(e) {    
     e.preventDefault();
+
+    // neomicho
+    // Issue (Fixed): An user can show the open period dialog, event if the menu is disabled    
+    if ($(this).parent('li').is('.disabled')) return false;
+    
     var ppCierreDialog = $("<div id='periodo-pago-cierre'>Cargando...</div>");
     ppCierreDialog.dialog({
         autoOpen: false,
