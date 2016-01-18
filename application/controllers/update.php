@@ -10,11 +10,11 @@ DESTAJO-MODULE-END
 */
 
 class Update extends CI_Controller {
-	
+
 	// Index
 	// Cargar la vista para cargar actualizaciones
 
-	public function index() 
+	public function index()
 	{
 		$this->load->view('update/update_main');
 	}
@@ -50,7 +50,7 @@ class Update extends CI_Controller {
 			// Obtener la informacion del zip
 			$unzip = $this->unzip($upload_zip_path);
 
-			// Crear la Tabla de actualizaciones si no existe			
+			// Crear la Tabla de actualizaciones si no existe
 			if ($this->db->table_exists('updates') == false) {
 				$this->db->query("CREATE TABLE `updates` ( `update_id` int(4) unsigned NOT NULL AUTO_INCREMENT, `path` varchar(255) DEFAULT NULL, `fichero` varchar(255) NOT NULL, `status` varchar(10) NOT NULL DEFAULT 'waiting', `date` varchar(11) DEFAULT NULL, PRIMARY KEY (`update_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8");
 			}
@@ -64,7 +64,7 @@ class Update extends CI_Controller {
 			foreach ($unzip as $key => $value) {
 
 				$query = $this->db->get_where('updates', array('fichero' => $value['name']), 1);
-				
+
 				if ($query->num_rows() <= 0)
 				{
 					// Solo guardar las extenciones .dtj
@@ -73,8 +73,8 @@ class Update extends CI_Controller {
 					{
 						$this->db->set("fichero", $value['name']);
 						$this->db->insert('updates');
-					}					
-				}				
+					}
+				}
 			}
 
 			// Obtener lista de ficheros en espera
@@ -85,6 +85,7 @@ class Update extends CI_Controller {
 				$names[] = $f->fichero;
 			}
 			$data['new_update_list'] = $names;
+			$data['file_path'] = $upload_zip_path;
 
 			// Mostrar formulario de nuevas actualizaciones
 			$this->load->view('update/update_list', $data);
@@ -97,16 +98,16 @@ class Update extends CI_Controller {
 	// Do Update
 	// Realiza la actualizacion
 
-	public function do_update() 
+	public function do_update()
 	{
 		$response = array();
-		$fichero = $this->input->post('fichero');		
+		$fichero = $this->input->post('fichero');
 
 		// Comprobar que el fichero exista en la bd como pendiente
 		$query = $this->db->get_where('updates', array('fichero' => $fichero, 'status' => 'waiting'));
 		if ($query->num_rows() > 0)
 		{
-			// Comprobar que el fichero esta en el zip 
+			// Comprobar que el fichero esta en el zip
 			// devolver el contenido en caso de estar
 			$content = $this->check_file_in_zip($fichero, $this->session->userdata('upload_zip_path'));
 
@@ -134,21 +135,21 @@ class Update extends CI_Controller {
 				$path="";
 				$create = array();
 				$delete = array();
-								
+
 				// Obtener instrucciones
 				foreach ($content_array as $key => $value) {
 					// date
-					if (strpos($value, "date:")!==false) $date=substr($value, strpos("date:", $value)+5);			
+					if (strpos($value, "date:")!==false) $date=substr($value, strpos("date:", $value)+5);
 					// type
 					if (strpos($value, "type:")!==false) $type=trim(substr($value, strpos("type:", $value)+5));
 					// path
 					if (strpos($value, "path:")!==false) $path=trim(substr($value, strpos("path:", $value)+5));
-					// create 
+					// create
 					if (strpos($value, "create:")!==false) $create[]=trim(substr($value, strpos("create:", $value)+7));
 					// delete
 					if (strpos($value, "delete:")!==false) $delete[]=trim(substr($value, strpos("delete:", $value)+7));
 				}
-				
+
 				// Ejecutar instrucciones
 				$this->exe_instruction($fichero, $content, $date, $type, $path, $create, $delete);
 			}
@@ -164,7 +165,7 @@ class Update extends CI_Controller {
 	}
 
 	//-------------------------------------------------------------------------
-	
+
 	// Check file in zip
 	// Comprobar que eun fichero este en el zip
 
@@ -175,7 +176,7 @@ class Update extends CI_Controller {
 		$content = NULL;
 
 		$unzip = $this->unzip($zip_path);
-		foreach ($unzip as $key => $value) 
+		foreach ($unzip as $key => $value)
 		{
 			log_message('debug', $value['name']);
 			if(strpos($value['name'], $fichero)!==false)
@@ -226,7 +227,7 @@ class Update extends CI_Controller {
 
 			    $this->load->model('temporal');
 			    $query = $this->temporal->one();
-			    
+
 			    if ($query == true)
 			    {
 
@@ -258,7 +259,7 @@ class Update extends CI_Controller {
 			   	    echo json_encode($response);
 			    }
 			}
-			
+
 		}
 
 		else
@@ -300,29 +301,29 @@ class Update extends CI_Controller {
 			   	echo json_encode($response);
 			}
 		}
-		
-		else 
-			
+
+		else
+
 		//  Acciones de crear o eliminar un recurso del servidor
-		
+
 		if ($type == "resource module")
 		{
 			$error=false;
-						
+
 			// Delete
 			foreach ($delete as $key => $value) {
 				if (is_writable($value)) @unlink($value);
-			}			
-			
+			}
+
 			// Create
 			foreach ($create as $key => $value) {
-				
+
 				// Obtener el nombre del recurso a crear
 				$res_name = substr($value, strrpos($value, "/")+1);
-								
+
 				// Obtener el contenido del recurso a crear
 				$content = $this->check_file_in_zip($res_name, $this->session->userdata('upload_zip_path'));
-				
+
 				// Crear el fichero
 				$this->load->helper('file');
 				if ( ! write_file($value, $content))
@@ -341,7 +342,7 @@ class Update extends CI_Controller {
 		    	$this->db->update('updates');
 
 				$response['status'] = "fail";
-			    $response['title'] = "Errores";				
+			    $response['title'] = "Errores";
 			   	echo json_encode($response);
 			}else{
 
@@ -352,7 +353,7 @@ class Update extends CI_Controller {
 		    	$this->db->update('updates');
 
 				$response['status'] = "done";
-			    $response['title'] = "Todo bien";				
+			    $response['title'] = "Todo bien";
 			   	echo json_encode($response);
 			}
 		}
@@ -376,57 +377,57 @@ class Update extends CI_Controller {
 	{
 		$files = array();
 		$handle = fopen($filename, "rb");
-	
+
 		// Seek to the end of central directory record.
 		$size = filesize($filename);
 		@fseek($handle, $size - 22);
-	
+
 		// Error checking.
 		if (ftell($handle) != $size - 22) return false; // Can't seek to end of central directory?
 		// Check end of central directory signature.
 		$data = unpack("Vid", fread($handle, 4));
 		if ($data["id"] != 0x06054b50) return false;
-	
+
 		// Extract the central directory information.
 		$centralDir = unpack("vdisk/vdiskStart/vdiskEntries/ventries/Vsize/Voffset/vcommentSize", fread($handle, 18));
 		$pos = $centralDir["offset"];
-	
+
 		// Loop through each entry in the zip file.
 		for ($i = 0; $i < $centralDir["entries"]; $i++) {
-	
+
 			// Read next central directory structure header.
 			@rewind($handle);
 			@fseek($handle, $pos + 4);
 			$header = unpack("vversion/vversionExtracted/vflag/vcompression/vmtime/vmdate/Vcrc/VcompressedSize/Vsize/vfilenameLen/vextraLen/vcommentLen/vdisk/vinternal/Vexternal/Voffset", fread($handle, 42));
-	
+
 			// Get the filename.
 			$header["filename"] = $header["filenameLen"] ? fread($handle, $header["filenameLen"]) : "";
-	
+
 			// Save the position.
 			$pos = ftell($handle) + $header["extraLen"] + $header["commentLen"];
-	
+
 			// Go to the position of the file.
 			@rewind($handle);
 			@fseek($handle, $header["offset"] + 4);
-	
+
 			// Read the local file header to get the filename length.
 			$localHeader = unpack("vversion/vflag/vcompression/vmtime/vmdate/Vcrc/VcompressedSize/Vsize/vfilenameLen/vextraLen", fread($handle, 26));
-	
+
 			// Get the filename.
 			$localHeader["filename"] = fread($handle, $localHeader["filenameLen"]);
 			// Skip the extra bit.
 			if ($localHeader["extraLen"] > 0) fread($handle, $localHeader["extraLen"]);
-	
+
 			// Extract the file (if it's not a folder.)
 			$directory = substr($header["filename"], -1) == "/";
 			if (!$directory and $header["compressedSize"] > 0) {
 				if ($header["compression"] == 0) $content = fread($handle, $header["compressedSize"]);
 				else $content = gzinflate(fread($handle, $header["compressedSize"]));
 			} else $content = "";
-			
+
 			// Get the file extencion MICHEL REYES
-			$header["file_ext"] = ($header["filename"] == "") ? "" : substr($header["filename"], strrpos($header["filename"], ".")); 
-	
+			$header["file_ext"] = ($header["filename"] == "") ? "" : substr($header["filename"], strrpos($header["filename"], "."));
+
 			// Add to the files array.
 			$files[] = array(
 				"name" => $header["filename"],
@@ -435,37 +436,16 @@ class Update extends CI_Controller {
 				"directory" => $directory,
 				"content" => !$directory ? $content : false
 			);
-	
+
 		}
-	
+
 		fclose($handle);
-	
+
 		// Return an array of files that were extracted.
 		return $files;
 	}
 
-	//-------------------------------------------------------------------------
 
-	public function manuallySQL ()
-	{
-		$this->load->model('temporal');
-		$x = $this->temporal->one();
-		var_dump($x);
-	}
-	
-	
-	//-------------------------------------------------------------------------
-	
-	public function view_resource()
-	{
-		$this->load->helper('file');
-		$path = "./restore_temp/du-2013-10-14.zip";
-		$u = $this->unzip($path);
-		foreach ($u as $key => $value) {
-			var_dump($value);
-					
-		}
-	}
 
 	// ------------------------------------------------------------------------
 
@@ -493,6 +473,14 @@ class Update extends CI_Controller {
 	     }
 	     return @mkdir($path, $mode);
 	 }
-	
 
+	 // ------------------------------------------------------------------------
+
+	 function delete_junk() {
+	 	$file_path =$this->input->post('path');
+	 	if (file_exists($file_path))
+	 	{
+	 		@unlink($file_path);
+	 	}
+	 }
 }

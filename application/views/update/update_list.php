@@ -17,7 +17,8 @@
   </head>
   <body class="update-container">
 
-
+        <!-- Input hidden used by JS to delete the upload file -->
+        <input type="hidden" name="file_path" value="<?php echo $file_path; ?>">
 
       <!-- Lista de updates nuevos -->
         <div class="update-container">
@@ -27,9 +28,9 @@
                 <div class="clearfix">
                     <p class="pull-left">
                         Informaci&oacute;n:
-                        <strong>Total: </strong><span><?php echo count($new_update_list); ?></span>
-                        <strong>Correctas: </strong><span class"update-ok">0</span>
-                        <strong>Fallidas: </strong><span class"update-fail">0</span>
+                        <strong>Total: </strong><small class="counterall"><?php echo count($new_update_list); ?></small>
+                        <strong>Correctas: </strong><small class="counterok">0</small>
+                        <strong>Fallidas: </strong><small calss"counterfail">0</small>
                     </p>
                     <p class="pull-right">
                         <button type="button" class="btn btn-primary" id="btn-update">Actualizar!</button>
@@ -64,7 +65,7 @@
 
       $(function() {
 
-        $('#btn-update').click(function(event) {
+            $('#btn-update').click(function(event) {
 
           event.preventDefault();
 
@@ -79,7 +80,6 @@
           function exeFile(file)
           {
              if (file == "") return;
-
              var r = $.ajax({
                         url: <?php echo '"' . $update_url . '"' ?>,
                         cache: false,
@@ -95,7 +95,7 @@
 
                 // Marcar fichero segun el estado title | status
                 var listName = $('.list-name');
-                var uok = $('.update-ok');
+                var counterok = $('.counterok');
                 for(var i=0; i<listName.length; i++)
                 {
                   if ($(listName[i]).text() == file)
@@ -106,7 +106,7 @@
                                   .find('.list-loader')
                                   .attr('title', response.title)
                                   .text(' (Actualizado)');
-                    uok.html( parseInt(uok.html()) + 1 );
+                    counterok.text(i+1);
                     break;
                   }
                 }
@@ -119,7 +119,7 @@
 
                 // Marcar fichero segun el estado title | status
                 var listName = $('.list-name');
-                var ufail = $('.update-fail');
+                var counterfail = $('.counterfail');
                 for(var i=0; i<listName.length; i++)
                 {
                   if ($(listName[i]).text() == file)
@@ -130,7 +130,7 @@
                                   .find('.list-loader')
                                   .attr('title', "error: " + error, " status: " + status)
                                   .text(' (No actualizado)');
-                    ufail.html( parseInt(ufail.html()) + 1 );
+                    counterfail(i+1);
                     break;
                   }
                 }
@@ -140,18 +140,14 @@
 
               // Always
               r.always(function(xhr, status, error) {
-
-              	// Sumar las "done" como completadas
-              	var updated = $("#updated");
-              	var listLoader = $('.list-loader');
-              	var contador = 0;
-
-              	for(var i=0,j=listLoader.length; i<j; i++){
-					if ($(listLoader[i]).text() == "done") contador++;
-				};
-
-				updated.text(contador);
-
+                // if counterall equals counterok we must delete the file uploaded
+                var file_path = $('input[name="file_path"]').val();
+                $.ajax({
+                    url: 'update/delete_junk',
+                    cache: false,
+                    type: 'post',
+                    data: {path: file_path},
+                });
               });
 
           }
