@@ -17,15 +17,13 @@
   </head>
   <body class="update-container">
 
-        <!-- Input hidden used by JS to delete the upload file -->
-        <input type="hidden" name="file_path" value="<?php echo $file_path; ?>">
-
       <!-- Lista de updates nuevos -->
         <div class="update-container">
             <div class="update-inner">
                 <h4>Listado de actualizaciones</h4>
             <div class="card card-lg">
                 <div class="clearfix">
+                	<p><?php echo anchor('update', '&#8592; Seleccionar fichero'); ?></p>
                     <p class="pull-left">
                         Informaci&oacute;n:
                         <strong>Total: </strong><small class="counterall"><?php echo count($new_update_list); ?></small>
@@ -137,19 +135,6 @@
 
                 console.log("error: " + error);
               });
-
-              // Always
-              r.always(function(xhr, status, error) {
-                // if counterall equals counterok we must delete the file uploaded
-                var file_path = $('input[name="file_path"]').val();
-                $.ajax({
-                    url: 'update/delete_junk',
-                    cache: false,
-                    type: 'post',
-                    data: {path: file_path},
-                });
-              });
-
           }
 
           // Obtener el proximo fichero a ser actualizado

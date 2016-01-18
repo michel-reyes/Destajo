@@ -85,7 +85,6 @@ class Update extends CI_Controller {
 				$names[] = $f->fichero;
 			}
 			$data['new_update_list'] = $names;
-			$data['file_path'] = $upload_zip_path;
 
 			// Mostrar formulario de nuevas actualizaciones
 			$this->load->view('update/update_list', $data);
@@ -445,8 +444,6 @@ class Update extends CI_Controller {
 		return $files;
 	}
 
-
-
 	// ------------------------------------------------------------------------
 
 	/**
@@ -474,13 +471,4 @@ class Update extends CI_Controller {
 	     return @mkdir($path, $mode);
 	 }
 
-	 // ------------------------------------------------------------------------
-
-	 function delete_junk() {
-	 	$file_path =$this->input->post('path');
-	 	if (file_exists($file_path))
-	 	{
-	 		@unlink($file_path);
-	 	}
-	 }
 }

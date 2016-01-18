@@ -3,7 +3,7 @@
 /*
 DESTAJO-MODULE
 
-date: 2014.12.17
+date: 2015.05.11
 type: php module
 path: application/controllers/periodo_pago.php
 
@@ -55,6 +55,8 @@ class Periodo_pago extends CI_Controller {
         if ($this->input->post('accion') && $this->input->post('accion') == "apertura") {
             $this->form_validation->set_rules('fecha_inicio_periodo_pago', 'Fecha de inicio', 'trim|required|xss_clean|human_date|callback_periodo_pago_apertura_date_check');        
         }
+
+        $this->form_validation->set_rules('fondo_horario', 'Fondo horario', 'trim|required|xss_clean');
         
         // Reglas de validacion para CIERRE
         if ($this->input->post('accion') && $this->input->post('accion') == "cierre") {

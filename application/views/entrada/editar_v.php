@@ -3,7 +3,7 @@
 /*
 DESTAJO-MODULE
 
-date: 2014.12.17
+date: 2015.05.11
 type: php module
 path: application/views/entrada/editar_v.php
 
@@ -190,27 +190,27 @@ DESTAJO-MODULE-END
                 <div id="fragment-3">
                     
                     <div class="row">
-                        <div class="span4">
+                        <!--div class="span4">
                             
-                            <label for="horas_ausencia">Horas de ausencia</label>
+                            <!--label for="horas_ausencia">Horas de ausencia</label>
                             <input value="<?php echo $ibi->horas_ausencia; ?>" type="text" name="horas_ausencia" id="horas_ausencia" date-numeric-format="decimal" class="span2" />
                             
                             <label for="fk_causa_ausencia_id">Causas de ausencia</label>
                             <select name="fk_causa_ausencia_id" id="fk_causa_ausencia_id" class="select2" data-placeholder="Seleccione la causa de la ausencia">
                                 <option></option>
-                                <?php if($causas_ausencia->num_rows() > 0): ?>
+                                <?php /*if($causas_ausencia->num_rows() > 0): ?>
                                     <?php foreach ($causas_ausencia->result() as $ca): ?>
                                         <option <?php if ($ca->m_causa_ausencia_id == $ibi->fk_causa_ausencia_id): ?> selected="selected" <?php endif; ?> value="<?php echo $ca->m_causa_ausencia_id; ?>">
                                             <?php echo $ca->causa; ?>
                                         </option>
                                     <?php endforeach; ?>
-                                <?php endif; ?>
-                            </select>
+                                <?php endif; */?>
+                            </select>-->
                             
-                            <label for="observaciones">Observaciones</label>
-                            <textarea name="observaciones" id="observaciones"><?php echo $ibi->observaciones; ?></textarea>
+                            <!--label for="observaciones">Observaciones</label>
+                            <textarea name="observaciones" id="observaciones"><?php echo $ibi->observaciones; ?></textarea>-->
                             
-                        </div>
+                        </!--div-->
                         
                         <div class="span4">
                             
@@ -224,7 +224,11 @@ DESTAJO-MODULE-END
                                     
                                     <label for="horas_no_vinculado">No vinculado</label>
                                     <input value="<?php echo $ibi->horas_no_vinculado; ?>" type="text" name="horas_no_vinculado" id="horas_no_vinculado" class="span2" data-numeric-format="decimal" />
-                                    
+                                
+								</div>
+								
+								<div class="span2">
+								
                                     <label for="horas_nocturnidad_corta">Nocturnidad <span class="muted">(Corta)</span> </label>
                                     <input value="<?php echo $ibi->horas_nocturnidad_corta; ?>" type="text" name="horas_nocturnidad_corta" id="horas_nocturnidad_corta" class="span2" data-numeric-format="decimal" />
                                     
@@ -233,7 +237,7 @@ DESTAJO-MODULE-END
                                                                                                          
                                 </div>
                                 
-                                <div class="span2">
+                                <!--div class="span2">
                                     
                                     <label for="horas_capacitacion">Capacitaci&oacute;n</label>
                                     <input value="<?php echo $ibi->horas_capacitacion; ?>" type="text" name="horas_capacitacion" id="horas_capacitacion" class="span2" data-numeric-format="decimal" />
@@ -244,7 +248,7 @@ DESTAJO-MODULE-END
                                     <label for="horas_feriado">Feriado</label>
                                     <input value="<?php echo $ibi->horas_feriado; ?>" type="text" name="horas_feriado" id="horas_feriado" class="span2" data-numeric-format="decimal" />
                                     
-                                </div>
+                                </div-->
                             </div>
                             
                         </div>
