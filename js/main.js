@@ -1,7 +1,7 @@
 /*
 DESTAJO-MODULE
 
-date: 2014.03.10
+date: 2014.12.17
 type: js module
 path: js/main.js
 
@@ -280,7 +280,7 @@ $( "#dialog-buscar" ).dialog({
         { 
             // Agregar regla de busqueda
             text: "",
-            title: "AÃ±adir regla",
+            title: "Añadir regla",
             append :"<i class='icon-plus'></i>",
             addClass: "btn buscar-add-regla",
             click: function() { 
@@ -389,11 +389,6 @@ $("body").on("click", ".comando-buscar", function(e) {
  */ 
 $('body').on('click', ".comando-periodo-apertura", function(e) {     
     e.preventDefault();
-
-    // neomicho
-    // Issue (Fixed): An user can show the open period dialog, event if the menu is disabled    
-    if ($(this).parent('li').is('.disabled')) return false;
-
     var ppAperturaDialog = $("<div id='periodo-pago-apertura'>Cargando...</div>");
     ppAperturaDialog.dialog({
         autoOpen: false,
@@ -453,11 +448,6 @@ $('body').on('click', ".comando-periodo-apertura", function(e) {
  */ 
 $(".comando-periodo-cierre").click(function(e) {    
     e.preventDefault();
-
-    // neomicho
-    // Issue (Fixed): An user can show the open period dialog, event if the menu is disabled    
-    if ($(this).parent('li').is('.disabled')) return false; 
-
     var ppCierreDialog = $("<div id='periodo-pago-cierre'>Cargando...</div>");
     ppCierreDialog.dialog({
         autoOpen: false,

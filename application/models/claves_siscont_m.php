@@ -1,5 +1,15 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/*
+DESTAJO-MODULE
+
+date: 2014.12.17
+type: php module
+path: application/models/claves_siscont_m.php
+
+DESTAJO-MODULE-END
+*/
+
 class Claves_siscont_m extends CI_Model {
 	
 	protected $fields = array(

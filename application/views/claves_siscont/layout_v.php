@@ -1,3 +1,15 @@
+<?php
+/*
+DESTAJO-MODULE
+
+date: 2014.12.17
+type: php module
+path: application/views/claves_siscont/layout_v.php
+
+DESTAJO-MODULE-END
+*/
+?>
+
 <!-- Dialogs -->
 <div id="dialog-editar" title="Editar <?php echo strtolower($modulo['display']); ?>"></div>
 <div id="dialog-nuevo" title="Agregar <?php echo strtolower($modulo['display']); ?>"></div>

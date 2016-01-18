@@ -169,3 +169,15 @@ ERROR - 2016-01-17 23:32:58 --> Severity: 8192  --> mysql_pconnect(): The mysql 
 ERROR - 2016-01-17 23:34:05 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead C:\wamp\www\destajo\system\database\drivers\mysql\mysql_driver.php 91
 ERROR - 2016-01-17 23:34:10 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead C:\wamp\www\destajo\system\database\drivers\mysql\mysql_driver.php 91
 ERROR - 2016-01-17 23:35:57 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead C:\wamp\www\destajo\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2016-01-17 23:36:50 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead C:\wamp\www\destajo\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2016-01-17 23:37:00 --> 404 Page Not Found --> backups
+ERROR - 2016-01-17 23:37:04 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead C:\wamp\www\destajo\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2016-01-17 23:37:05 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead C:\wamp\www\destajo\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2016-01-17 23:37:24 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead C:\wamp\www\destajo\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2016-01-17 23:37:30 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead C:\wamp\www\destajo\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2016-01-17 23:37:45 --> 404 Page Not Found --> backups
+ERROR - 2016-01-17 23:37:49 --> 404 Page Not Found --> backup
+ERROR - 2016-01-17 23:37:52 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead C:\wamp\www\destajo\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2016-01-17 23:37:52 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead C:\wamp\www\destajo\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2016-01-17 23:38:15 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead C:\wamp\www\destajo\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2016-01-17 23:38:19 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead C:\wamp\www\destajo\system\database\drivers\mysql\mysql_driver.php 91

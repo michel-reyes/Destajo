@@ -1,3 +1,15 @@
+<?php
+/*
+DESTAJO-MODULE
+
+date: 2014.12.17
+type: php module
+path: application/views/claves_siscont/search_v.php
+
+DESTAJO-MODULE-END
+*/
+?>
+
 <?php echo form_open('claves_siscont/show_content', array('id'=>'form-search')); 
     // Obtener las busquedas almacenadas en session
     $b_campo = $this->session->userdata('buscar_campo_claves_siscont');

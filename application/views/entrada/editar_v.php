@@ -1,4 +1,18 @@
-<?php echo form_open($modulo['nombre'] . '/editar', array('class'=>'main-form form-validate')); ?>
+<?php echo form_open($modulo['nombre'] . '/editar', array('class'=>'main-form form-validate')); 
+
+/*
+DESTAJO-MODULE
+
+date: 2014.12.17
+type: php module
+path: application/views/entrada/editar_v.php
+
+DESTAJO-MODULE-END
+*/
+
+?>
+
+
 
 	<!-- Necesario para guardar -->
     <input type="hidden" name="accion" value="editar" />
@@ -67,7 +81,7 @@
                     <div class="row">                        
                         <div class="span4">
                             
-                            <!-- Equipo cuÃ±a -->
+                            <!-- Equipo cuña -->
                             <label for="fk_capacidad_carga_id">Equipo <span class="muted">(Cu&ntilde;a)</span></label>
                             <select class="select2" name="fk_capacidad_carga_id" id="fk_capacidad_carga_id" data-placeholder="Seleccione un equipo">
                                 <option></option>

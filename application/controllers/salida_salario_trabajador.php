@@ -3,7 +3,7 @@
 /*
 DESTAJO-MODULE
 
-date: 2014.03.10
+date: 2014.12.19
 type: php module
 path: application/controllers/salida_salario_trabajador.php
 
@@ -37,7 +37,7 @@ class Salida_salario_trabajador extends CI_Controller {
         $this->periodo_pago['ppa'] = $pp->perioro_pago_abierto;
         $this->periodo_pago['fipp'] = $pp->fecha_inicio_periodo_pago;
         $this->periodo_pago['ffpp'] = $pp->fecha_final_periodo_pago;
-        $this->periodo_pago['fh'] = $pp->fondo_horario;
+        //$this->periodo_pago['fh'] = $pp->fondo_horario;
         $this->load->library('math');
         
         // Comprobar que el periodo de pago este abierto
@@ -292,23 +292,26 @@ class Salida_salario_trabajador extends CI_Controller {
         $this->load->model('claves_siscont_m');
         // clave de vinculacion
         $cev = $this->claves_siscont_m->getClaveBySigla('CEV');
+
         // clave de entrada nocturnidad corta
         $cenc = $this->claves_siscont_m->getClaveBySigla('CENC');
 
         // Fondo horario
-        $fondo_horario = $this->periodo_pago['fh'];
+        $fondo_horario = 1;//$this->periodo_pago['fh'];
 
         $newline = "\n"; 
         $tab = "\t";
 
         $xml  = '<?xml version="1.0" encoding="ISO-8859-1"?>'.$newline;
         $xml .= $tab.'<INCIDENCIAS>'.$newline;
-        
+
 
         foreach ($incidencia->result() as $i) 
         {
+
             // obtener tarifa completa del operario
             $tarifa_completa = $this->math->L($this->math->S($i->chapa))->tarifa_completa;
+
 
             // ajustar tiempo de trabajo TiemTiepo 2
             // ajuste:
@@ -350,6 +353,8 @@ class Salida_salario_trabajador extends CI_Controller {
             $xml .= $tab.$tab.'</INCIDENCIA>'.$newline;
             $j++;
         }
+
+        $xml .= $tab.'</INCIDENCIAS>'.$newline;
 
         // Cargar la libreria para hacer descargas
         $this->load->helper('download');

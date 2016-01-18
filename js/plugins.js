@@ -1,7 +1,7 @@
 /*
 DESTAJO-MODULE
 
-date: 2014.03.10
+date: 2014.12.17
 type: js module
 path: js/plugins.js
 
@@ -833,7 +833,7 @@ var mainForm = {
     -------------------------------------------------------------    */
    
    debeElegirEquipo: function(e) {
-       // Prevenir que se depliegue la lista si no se ha seleccionado un equipo - cuÃ±a
+       // Prevenir que se depliegue la lista si no se ha seleccionado un equipo - cuña
        var ec = $('#fk_capacidad_carga_id'),
            valor = ec.select2("val");
        if (valor == "" || valor == null) {
@@ -884,8 +884,8 @@ var mainForm = {
     fillProductos
     
     Rellenar productos: esta funcion permite rellenar los productos dependiendo
-    del equipo cuÃ±a que se seleccione
-    Permite comprobar que el equipo cuÃ±a tenga tiempo de carga y tiempo de descarga
+    del equipo cuña que se seleccione
+    Permite comprobar que el equipo cuña tenga tiempo de carga y tiempo de descarga
     -------------------------------------------------------------    */
    
    fillProductos: function(e) {
@@ -1014,7 +1014,7 @@ var mainForm = {
     * fillMunicipios (minorista)
     * 
     * Rellenar municipios: esta funcion permite rellenar los municipios dependiendo
-    * de los productos y de los equipos(cuÃ±a) que se seleccionen
+    * de los productos y de los equipos(cuña) que se seleccionen
     * 
     * @Esta funcion es desencadenada por el select de productos en su metodo onchange
     --------------------------------------------------------------------------*/
@@ -1089,7 +1089,7 @@ var mainForm = {
     * fillLugarCarga (minorista)
     * 
     * Rellenar lugares d ecarga: esta funcion permite rellenar los lugares d ecarga dependiendo
-    * de los productos y de los equipos(cuÃ±a) que se seleccionen
+    * de los productos y de los equipos(cuña) que se seleccionen
     * 
     * @Esta funcion es desencadenada por el select de productos en su metodo onchange
     --------------------------------------------------------------------------*/
@@ -1457,7 +1457,7 @@ function initForm () {
       
       /**
        * Capcidad de carga
-       * - Rellenar los productos dependiendo de equipo cuÃ±a
+       * - Rellenar los productos dependiendo de equipo cuña
        */
       $('#fk_capacidad_carga_id').on('change', function(e) {
           mainForm.fillProductos(e);
@@ -1722,5 +1722,3 @@ var buscar_machine = {
         
     }
 } 
-
-

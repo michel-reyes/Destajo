@@ -2,7 +2,7 @@
 /*
 DESTAJO-MODULE
 
-date: 2014.03.10
+date: 2014.12.17
 type: php module
 path: application/views/entrada/agregar_v.php
 
@@ -91,7 +91,7 @@ echo form_open($modulo['nombre'] . '/agregar', array('class'=>'main-form form-va
                     <div class="row">                        
                         <div class="span4">
                             
-                            <!-- Equipo cuÃ±a -->
+                            <!-- Equipo cuña -->
                             <label for="fk_capacidad_carga_id">Equipo <span class="muted">(Cu&ntilde;a)</span></label>
                             <select class="select2" name="fk_capacidad_carga_id" id="fk_capacidad_carga_id" data-placeholder="Seleccione un equipo">
                                 <option></option>

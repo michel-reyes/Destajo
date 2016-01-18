@@ -3,7 +3,7 @@
 /*
 DESTAJO-MODULE
 
-date: 2014.05.20
+date: 2014.12.17
 type: php module
 path: application/models/salida_salario_trabajador_m.php
 

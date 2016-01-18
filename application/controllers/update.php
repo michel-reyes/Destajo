@@ -1,7 +1,14 @@
 <?php
-/**
- * Update
- */
+/*
+DESTAJO-MODULE
+
+date: 2014.12.17
+type: php module
+path: application/controllers/update.php
+
+DESTAJO-MODULE-END
+*/
+
 class Update extends CI_Controller {
 	
 	// Index
@@ -260,6 +267,12 @@ class Update extends CI_Controller {
 		// Actualizar un contenido o crearlo si no existe
 		if ($type == "php module" || $type == "js module" || $type == "css module")
 		{
+
+			// Intentar crear directorio si no existe
+			// quitar el fichero de la lista de directorios a crear
+			$this->rmkdir(substr($path, 0, strrpos($path, "/")+1));
+
+
 			if ( ! write_file("./" . $path, $content))
 			{
 				// Marcar el fichero como fail en la bd
@@ -453,6 +466,33 @@ class Update extends CI_Controller {
 					
 		}
 	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	  * Makes directory and returns BOOL(TRUE) if exists OR made.
+	  *
+	  * @param  $path Path name
+	  * @return bool
+	  */
+	public function rmkdir($path, $mode = 0755) {
+
+	     $path = rtrim(preg_replace(array("/\\\\/", "/\/{2,}/"), "/", $path), "/");
+
+	     $e = explode("/", ltrim($path, "/"));
+	     if(substr($path, 0, 1) == "/") {
+	         $e[0] = "/".$e[0];
+	     }
+	     $c = count($e);
+	     $cp = $e[0];
+	     for($i = 1; $i < $c; $i++) {
+	         if(!is_dir($cp) && !@mkdir($cp, $mode)) {
+	             return false;
+	         }
+	         $cp .= "/".$e[$i];
+	     }
+	     return @mkdir($path, $mode);
+	 }
 	
 
 }

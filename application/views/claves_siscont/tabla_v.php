@@ -1,3 +1,15 @@
+<?php
+/*
+DESTAJO-MODULE
+
+date: 2014.12.17
+type: php module
+path: application/views/claves_siscont/tabla_v.php
+
+DESTAJO-MODULE-END
+*/
+?>
+
 <?php if ($results->num_rows() > 0): ?>
 	
 	<table class="table-fixed-header fancyTable">

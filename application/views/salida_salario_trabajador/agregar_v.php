@@ -2,7 +2,7 @@
 /*
 DESTAJO-MODULE
 
-date: 2014.03.10
+date: 2014.12.17
 type: php module
 path: application/views/salida_salario_trabajador/agregar_v.php
 

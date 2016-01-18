@@ -1,5 +1,15 @@
-<?php echo form_open('periodo_pago/apertura', array('class'=>'main-form form-validate')); ?>
+<?php echo form_open('periodo_pago/apertura', array('class'=>'main-form form-validate')); 
 
+/*
+DESTAJO-MODULE
+
+date: 2014.12.17
+type: php module
+path: application/views/periodo_pago/apertura_v.php
+
+DESTAJO-MODULE-END
+*/
+?>
 	<!-- Necesario para guardar -->
     <input type="hidden" name="accion" value="apertura" />
         

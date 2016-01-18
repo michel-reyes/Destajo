@@ -1,5 +1,14 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/*
+DESTAJO-MODULE
+
+date: 2014.12.17
+type: php module
+path: application/controllers/claves_siscont.php
+
+DESTAJO-MODULE-END
+*/
 
 class Claves_siscont extends CI_Controller {
 	

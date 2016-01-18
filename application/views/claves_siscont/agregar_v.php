@@ -1,3 +1,15 @@
+<?php
+/*
+DESTAJO-MODULE
+
+date: 2014.12.17
+type: php module
+path: application/views/claves_siscont/agregar_v.php
+
+DESTAJO-MODULE-END
+*/
+?>
+
 <?php echo form_open($modulo['nombre'] . '/agregar', array('class'=>'main-form form-validate')); ?>
 
 	<!-- Necesario para guardar -->
