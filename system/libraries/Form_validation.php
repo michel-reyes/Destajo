@@ -60,7 +60,7 @@ class CI_Form_validation {
 	 *
 	 * @var array
 	 */
-	protected $_field_data		= array();
+	public $_field_data		= array();
 
 	/**
 	 * Validation rules for the current form
@@ -1129,10 +1129,49 @@ class CI_Form_validation {
 	 */
 	public function is_unique($str, $field)
 	{
+		/**
+         * Esta funcion ha sido modificada por Michel Reyes 01/04/2012
+         * Cuando se AGREGA si total de registros es mayor igual 1 el valor es duplicado
+         * Cuando se EDITA si total de registros es mayor igual 2 el valor es duplicado
+         * si total de registros es menor igual 1 y los id son iguales no es duplicado
+         * 
+         * Se agregan modificaciones por nueva version de CI 03/25/2016
+         */
 		sscanf($field, '%[^.].%[^.]', $table, $field);
-		return isset($this->CI->db)
-			? ($this->CI->db->limit(1)->get_where($table, array($field => $str))->num_rows() === 0)
-			: FALSE;
+
+
+		$query = $this->CI->db->limit(1)->get_where($table, array($field => $str));
+		$total = $query->num_rows();
+		// listar los campos de la BD (asumiendo que el primero, sin importar el nombre, es el ID)
+        $fields = $this->CI->db->list_fields($table);
+        $id_field = ($fields[0]);
+        // Se esta editando
+        if ($this->CI->input->post('id'))
+        {
+            if ($total == 1){
+                $row = $query->row();
+                $id = $row->$id_field;
+                if ($id == $this->CI->input->post('id')){
+                    return TRUE;
+                }else{
+                    return FALSE;
+                }
+            }
+            else
+            if ($total > 1)
+            {
+                return FALSE;
+            }
+        }
+        
+        // Se esta agregando
+        if ( ! $this->CI->input->post('id'))
+        {
+            if ($total > 0)
+            {
+                return FALSE;
+            }
+        }
 	}
 
 	// --------------------------------------------------------------------

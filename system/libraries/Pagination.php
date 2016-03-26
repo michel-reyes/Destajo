@@ -319,6 +319,12 @@ class CI_Pagination {
 	 */
 	protected $CI;
 
+	/**
+	 * Modificaciones para ajustar a Destajo
+	 * 03/25/2016 Michel
+	 */
+	public $output = array('num_pages'=>0, 'cur_page'=>'', 'next_page'=>'', 'before_page'=>'' );
+
 	// --------------------------------------------------------------------
 
 	/**
@@ -560,14 +566,17 @@ class CI_Pagination {
 		// And here we go...
 		$output = '';
 
+		// new
+		$output_cache = '';
+
 		// Render the "First" link.
 		if ($this->first_link !== FALSE && $this->cur_page > ($this->num_links + 1 + ! $this->num_links))
 		{
 			// Take the general parameters, and squeeze this pagination-page attr in for JS frameworks.
 			$attributes = sprintf('%s %s="%d"', $this->_attributes, $this->data_page_attr, 1);
 
-			$output .= $this->first_tag_open.'<a href="'.$first_url.'"'.$attributes.$this->_attr_rel('start').'>'
-				.$this->first_link.'</a>'.$this->first_tag_close;
+			//$output .= $this->first_tag_open.'<a href="'.$first_url.'"'.$attributes.$this->_attr_rel('start').'>'
+			//	.$this->first_link.'</a>'.$this->first_tag_close;
 		}
 
 		// Render the "Previous" link.
@@ -584,10 +593,13 @@ class CI_Pagination {
 					.$this->prev_link.'</a>'.$this->prev_tag_close;
 			}
 			else
-			{
+			{				
 				$append = $this->prefix.$i.$this->suffix;
 				$output .= $this->prev_tag_open.'<a href="'.$base_url.$append.'"'.$attributes.$this->_attr_rel('prev').'>'
 					.$this->prev_link.'</a>'.$this->prev_tag_close;
+
+				// new
+				$this->output['before_page'] = $base_url.$i;
 			}
 
 		}
@@ -607,19 +619,23 @@ class CI_Pagination {
 					if ($this->cur_page === $loop)
 					{
 						// Current page
-						$output .= $this->cur_tag_open.$loop.$this->cur_tag_close;
+						//$output .= $this->cur_tag_open.$loop.$this->cur_tag_close;
+
+						// new
+					    if ($loop) $this->output['cur_page'] = $loop;
+                        if ($num_pages) $this->output['num_pages'] = $num_pages;
 					}
 					elseif ($i === $base_page)
 					{
 						// First page
-						$output .= $this->num_tag_open.'<a href="'.$first_url.'"'.$attributes.$this->_attr_rel('start').'>'
-							.$loop.'</a>'.$this->num_tag_close;
+						//$output .= $this->num_tag_open.'<a href="'.$first_url.'"'.$attributes.$this->_attr_rel('start').'>'
+						//	.$loop.'</a>'.$this->num_tag_close;
 					}
 					else
 					{
 						$append = $this->prefix.$i.$this->suffix;
-						$output .= $this->num_tag_open.'<a href="'.$base_url.$append.'"'.$attributes.'>'
-							.$loop.'</a>'.$this->num_tag_close;
+						//$output .= $this->num_tag_open.'<a href="'.$base_url.$append.'"'.$attributes.'>'
+						//	.$loop.'</a>'.$this->num_tag_close;
 					}
 				}
 			}
@@ -634,6 +650,8 @@ class CI_Pagination {
 
 			$output .= $this->next_tag_open.'<a href="'.$base_url.$this->prefix.$i.$this->suffix.'"'.$attributes
 				.$this->_attr_rel('next').'>'.$this->next_link.'</a>'.$this->next_tag_close;
+
+			$this->output['next_page'] = $base_url.$i;
 		}
 
 		// Render the "Last" link
@@ -643,8 +661,8 @@ class CI_Pagination {
 
 			$attributes = sprintf('%s %s="%d"', $this->_attributes, $this->data_page_attr, $num_pages);
 
-			$output .= $this->last_tag_open.'<a href="'.$base_url.$this->prefix.$i.$this->suffix.'"'.$attributes.'>'
-				.$this->last_link.'</a>'.$this->last_tag_close;
+			//$output .= $this->last_tag_open.'<a href="'.$base_url.$this->prefix.$i.$this->suffix.'"'.$attributes.'>'
+			//	.$this->last_link.'</a>'.$this->last_tag_close;
 		}
 
 		// Kill double slashes. Note: Sometimes we can end up with a double slash
