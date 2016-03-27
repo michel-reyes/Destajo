@@ -161,8 +161,8 @@ class Entrada extends CI_Controller {
 
         // Reuqeridos
         $this->form_validation->set_rules('fk_operario_id', 'Operario', 'trim|required');
-        $this->form_validation->set_rules('fecha_incidencia', 'Fecha de la incidencia', 'trim|required|human_date');
-        $this->form_validation->set_rules('fecha_captacion', 'Fecha de captaci&oacute;n', 'trim|required|human_date');
+        $this->form_validation->set_rules('fecha_incidencia', 'Fecha de la incidencia', 'trim|required|regex_match[/^([0-9]{1,2}\/([0-9]{1,2})\/([0-9]{4}))/]');
+        $this->form_validation->set_rules('fecha_captacion', 'Fecha de captaci&oacute;n', 'trim|required|regex_match[/^([0-9]{1,2}\/([0-9]{1,2})\/([0-9]{4}))/]');
 
         // Datos generales
         if ($this->input->post('hoja_de_ruta')) {
@@ -175,7 +175,7 @@ class Entrada extends CI_Controller {
             $this->form_validation->set_rules('fk_carga_descarga_id', 'Recorrido', 'trim|required');
         }
         if ($this->input->post('km_recorridos_carga')) {
-            $this->form_validation->set_rules('km_recorridos_carga', 'Km. recorridos con carga', 'trim|required|decimal');
+            $this->form_validation->set_rules('km_recorridos_carga', 'Km. recorridos con carga', 'trim|required|regex_match[/^-?\d+([\.\,]\d+)+?$/]');
         }
         if ($this->input->post('litros_entregados')) {
             $this->form_validation->set_rules('litros_entregados', 'Litros entregados', 'trim|required|integer');
@@ -184,7 +184,7 @@ class Entrada extends CI_Controller {
             $this->form_validation->set_rules('fk_modo_descarga_id', 'Modo de descarga', 'trim|required|integer');
         }
         if ($this->input->post('numero_de_viajes')) {
-            $this->form_validation->set_rules('horas_de_viaje', 'Horas de viaje', 'trim|required|decimal');
+            $this->form_validation->set_rules('horas_de_viaje', 'Horas de viaje', 'trim|required|regex_match[/^-?\d+([\.\,]\d+)+?$/]');
         }
         if ($this->input->post('numero_de_entregas')) {
             $this->form_validation->set_rules('numero_de_viajes', 'N&uacute;mero de viajes', 'trim|required|integer');

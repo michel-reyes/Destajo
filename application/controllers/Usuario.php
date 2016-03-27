@@ -15,7 +15,7 @@ class Usuario extends CI_Controller {
         parent::__construct();
         $this->users->can('Usuario.Ver', TRUE);
         
-        $this->load->library('encrypt');
+        $this->load->library('encryption');
         $this->load->model('usuario_m');
 		// Almacenar nombre del modulo en cookie para poder acceder por jquery
 		$cookie = array(

@@ -20,11 +20,33 @@ class Auth_m extends CI_Model {
      */
      public function login()
      {
-     	 $this->db->limit(1);
-		 $this->db->where('nombre_login', $this->input->post('nombre_login'));
-		 $this->db->where('password_login', $this->encrypt->sha1($this->input->post('password_login')));
-		 $this->db->join('empresa e', 'e.empresa_id = u.fk_empresa_id', 'left');
-		 $this->db->join('perfil p', 'p.perfil_id = u.fk_perfil_id', 'left');
-		 return $this->db->get('usuario u');
+     	 // obtnemos los datos del usurio en la bd
+        $this->db->limit(1);
+        $this->db->where('nombre_login', $this->input->post('nombre_login'));
+        $this->db->join('empresa e', 'e.empresa_id = u.fk_empresa_id', 'left');
+        $this->db->join('perfil p', 'p.perfil_id = u.fk_perfil_id', 'left');
+        $query =  $this->db->get('usuario u');
+        if ($query->num_rows() <= 0 ) {
+            return false;
+        }
+        else {
+            // el hash es igual al password?
+            $r = $query->row();
+            $this->encryption->initialize(
+                array(         
+                    'cipher' => 'aes-128',
+                    'mode' => 'cbc',
+                    'key' => $this->input->post('nombre_login'),
+                    'hmac_digest' => 'sha256'
+                )
+            );
+            $password = $this->encryption->decrypt($r->password_login);
+            if ($password == $this->input->post('password_login')) {
+                return $query;
+            }
+            else {
+                return false;
+            }
+        }
      }
 }

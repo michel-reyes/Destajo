@@ -101,12 +101,12 @@ class Tarifa_pago extends CI_Controller {
         
         // Reglas de validacion
         $this->form_validation->set_rules('fk_categoria_operario_id', 'Categor&iacute;a del operario', 'trim|required|is_unique[tarifa_pago.fk_categoria_operario_id]');
-        $this->form_validation->set_rules('tarifa_menor', 'Tarifa para viajes menores', 'trim|required|decimal');
-        $this->form_validation->set_rules('tarifa_mayor', 'Tarifa para viajes mayores', 'trim|required|decimal');
-        $this->form_validation->set_rules('tarifa_completa', 'Tarifa completa', 'trim|required|decimal');
+        $this->form_validation->set_rules('tarifa_menor', 'Tarifa para viajes menores', 'trim|required|regex_match[/^-?\d+([\.\,]\d+)+?$/]');
+        $this->form_validation->set_rules('tarifa_mayor', 'Tarifa para viajes mayores', 'trim|required|regex_match[/^-?\d+([\.\,]\d+)+?$/]');
+        $this->form_validation->set_rules('tarifa_completa', 'Tarifa completa', 'trim|required|regex_match[/^-?\d+([\.\,]\d+)+?$/]');
         // Valor no obligatorio, pero decimal
         if ($this->input->post('tarifa_interrupcion')) { 
-            $this->form_validation->set_rules('tarifa_interrupcion', 'Tarifa para interrupciones', 'trim|required|decimal');
+            $this->form_validation->set_rules('tarifa_interrupcion', 'Tarifa para interrupciones', 'trim|required|regex_match[/^-?\d+([\.\,]\d+)+?$/]');
         }
        
         // Validacion fallo

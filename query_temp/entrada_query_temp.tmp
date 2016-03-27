@@ -1,0 +1,15 @@
+SELECT `entrada`.`entrada_id`, `entrada`.`fk_operario_id`, `entrada`.`fecha_incidencia`, `entrada`.`hoja_de_ruta`, `entrada`.`fk_capacidad_carga_id`, `entrada`.`fk_producto_id`, `entrada`.`fecha_captacion`, `entrada`.`horas_de_viaje`, `entrada`.`numero_de_viajes`, `entrada`.`numero_de_entregas`, `entrada`.`fk_modo_descarga_id`, `entrada`.`litros_entregados`, `entrada`.`fk_carga_descarga_id`, `entrada`.`km_recorridos_carga`, `entrada`.`horas_interrupto`, `entrada`.`horas_no_vinculado`, `entrada`.`horas_nocturnidad_corta`, `entrada`.`cuantia_horaria_nocturnidad_corta`, `entrada`.`horas_nocturnidad_larga`, `entrada`.`cuantia_horaria_nocturnidad_larga`, `entrada`.`horas_capacitacion`, `entrada`.`horas_movilizacion`, `entrada`.`horas_feriado`, `entrada`.`pago_feriado`, `entrada`.`horas_ausencia`, `entrada`.`fk_causa_ausencia_id`, `entrada`.`observaciones`, `entrada`.`importe_viaje`, `entrada`.`importe_viaje_progresivo_i`, `entrada`.`importe_viaje_m`, `entrada`.`cumplimiento_norma`, `entrada`.`cumplimiento_norma_minorista`, `entrada`.`fecha_inicio_periodo_pago`, `entrada`.`fecha_final_periodo_pago`, `op`.`m_operario_id`, `op`.`chapa`, `op`.`nombre`, `op`.`apellidos`, `op`.`fk_categoria_operario_id`, `cd`.`carga_descarga_id`, `cd`.`codigo`, `cd`.`km_recorridos`, `p`.`m_producto_id`, `p`.`producto`, `p`.`tipo`, `md`.`m_modo_descarga_id`, `md`.`modo`, `cc`.`m_capacidad_carga_id`, `cc`.`viajes_promedio`, `cc`.`capacidad_carga`, `cc`.`tipo_de_producto`, `m_equipo`.`m_equipo_id`, `m_equipo`.`numero_operacional` as `no_equipo`, `m_cuna`.`m_cuna_id`, `m_cuna`.`numero_operacional` as `no_cuna`, `lc`.`m_lugar_carga_id`, `lc`.`lugar_carga`, `ld`.`m_lugar_descarga_id`, `ld`.`lugar_descarga`, `ca`.`m_causa_ausencia_id`, `ca`.`causa`
+FROM `entrada`
+LEFT JOIN `m_operario` `op` ON `op`.`m_operario_id` = `entrada`.`fk_operario_id`
+LEFT JOIN `m_capacidad_carga` `cc` ON `cc`.`m_capacidad_carga_id` = `entrada`.`fk_capacidad_carga_id`
+LEFT JOIN `m_producto` `p` ON `p`.`m_producto_id` = `entrada`.`fk_producto_id`
+LEFT JOIN `m_modo_descarga` `md` ON `md`.`m_modo_descarga_id` = `entrada`.`fk_modo_descarga_id`
+LEFT JOIN `carga_descarga` `cd` ON `cd`.`carga_descarga_id` = `entrada`.`fk_carga_descarga_id`
+LEFT JOIN `m_equipo` ON `m_equipo`.`m_equipo_id` = `cc`.`fk_equipo_id`
+LEFT JOIN `m_cuna` ON `m_cuna`.`m_cuna_id` = `cc`.`fk_cuna_id`
+LEFT JOIN `m_lugar_carga` `lc` ON `lc`.`m_lugar_carga_id` = `cd`.`fk_lugar_carga_id`
+LEFT JOIN `m_lugar_descarga` `ld` ON `ld`.`m_lugar_descarga_id` = `cd`.`fk_lugar_descarga_id`
+LEFT JOIN `m_causa_ausencia` `ca` ON `ca`.`m_causa_ausencia_id` = `entrada`.`fk_causa_ausencia_id`
+WHERE `fecha_inicio_periodo_pago` >= '1456808400'
+AND `fecha_final_periodo_pago` <= '1459396800'
+ORDER BY `entrada_id` DESC

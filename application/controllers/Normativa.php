@@ -112,7 +112,7 @@ class Normativa extends CI_Controller {
         // Reglas de validacion
         $this->form_validation->set_rules('normativa', 'Normativa', 'trim|required|max_length[200]|is_unique[m_normativa.normativa]');
         $this->form_validation->set_rules('sigla', 'Sigla', 'trim|required|max_length[6]|is_unique[m_normativa.sigla]');
-        $this->form_validation->set_rules('valor', 'Valor', 'trim|required|max_length[6]|decimal');
+        $this->form_validation->set_rules('valor', 'Valor', 'trim|required|max_length[6]|regex_match[/^-?\d+([\.\,]\d+)+?$/]');
         $this->form_validation->set_rules('unidad_medida', 'Unidad de medida', 'trim|required|max_length[20]');
         
         // Validacion fallo

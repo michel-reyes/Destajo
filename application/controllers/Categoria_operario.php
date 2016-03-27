@@ -102,8 +102,8 @@ class Categoria_operario extends CI_Controller {
         // Reglas de validacion
         $this->form_validation->set_rules('categoria', 'Categor&iacute;a', 'trim|required|max_length[100]|is_unique[m_categoria_operario.categoria]');
         $this->form_validation->set_rules('nomenclador', 'Nomenclador', 'trim|required|max_length[5]|is_unique[m_categoria_operario.nomenclador]');
-        $this->form_validation->set_rules('min_capacidad_carga', 'M&iacute;n. capacidad', 'trim|required|decimal');
-        $this->form_validation->set_rules('max_capacidad_carga', 'M&aacute;x. capacidad', 'trim|required|decimal');
+        $this->form_validation->set_rules('min_capacidad_carga', 'M&iacute;n. capacidad', 'trim|required|regex_match[/^-?\d+([\.\,]\d+)+?$/]');
+        $this->form_validation->set_rules('max_capacidad_carga', 'M&aacute;x. capacidad', 'trim|required|regex_match[/^-?\d+([\.\,]\d+)+?$/]');
         
         // Validacion fallo
         if ( $this->form_validation->run() == FALSE ){

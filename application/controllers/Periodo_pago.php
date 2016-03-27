@@ -53,14 +53,14 @@ class Periodo_pago extends CI_Controller {
         $response = array();
         // Reglas de validacion para APERTURA
         if ($this->input->post('accion') && $this->input->post('accion') == "apertura") {
-            $this->form_validation->set_rules('fecha_inicio_periodo_pago', 'Fecha de inicio', 'trim|required|human_date|callback_periodo_pago_apertura_date_check');        
+            $this->form_validation->set_rules('fecha_inicio_periodo_pago', 'Fecha de inicio', 'trim|required|regex_match[/^([0-9]{1,2}\/([0-9]{1,2})\/([0-9]{4}))/]|callback_periodo_pago_apertura_date_check');        
         }
 
         $this->form_validation->set_rules('fondo_horario', 'Fondo horario', 'trim|required');
         
         // Reglas de validacion para CIERRE
         if ($this->input->post('accion') && $this->input->post('accion') == "cierre") {
-            $this->form_validation->set_rules('fecha_final_periodo_pago', 'Fecha de cierre', 'trim|required|human_date|callback_periodo_pago_cierre_date_check');
+            $this->form_validation->set_rules('fecha_final_periodo_pago', 'Fecha de cierre', 'trim|required|regex_match[/^([0-9]{1,2}\/([0-9]{1,2})\/([0-9]{4}))/]|callback_periodo_pago_cierre_date_check');
         }
         
         // Validacion fallo

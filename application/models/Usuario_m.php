@@ -228,9 +228,23 @@ class Usuario_m extends CI_Model {
         $this->db->set('apellidos', $this->input->post('apellidos')); 
         $this->db->set('email', $this->input->post('email')); 
         $this->db->set('nombre_login', $this->input->post('nombre_login')); 
-        $this->db->set('password_login', $this->encrypt->sha1($this->input->post('password_login'))); 
+
+        //$this->db->set('password_login', $this->encrypt->sha1($this->input->post('password_login'))); 
+        // Encriptacion con el nombre de ogin el usuario (que es unico) para que no puedan copiar
+        // un password de usuario para otro y acceder con credenciales truncadas
+        $this->encryption->initialize(
+            array(         
+                'cipher' => 'aes-128',
+                'mode' => 'cbc',
+                'key' => $this->input->post('nombre_login'),
+                'hmac_digest' => 'sha256'
+            )
+        );
+        $cipherpass = $this->encryption->encrypt($this->input->post('password_login'));
+        $this->db->set('password_login', $cipherpass);
+
         $this->db->set('fecha_alta', date('Y-m-d')); 
-        $this->db->set('fk_empresa_id', $this->input->post('fk_empresa_id')); 		
+        $this->db->set('fk_empresa_id', $this->input->post('fk_empresa_id'));       
         $this->db->set('fk_perfil_id', $this->input->post('fk_perfil_id'));
         return $this->db->insert('usuario');
     }
@@ -245,17 +259,72 @@ class Usuario_m extends CI_Model {
      */
     public function editar($id='')
     {
-        $this->db->set('nombre', $this->input->post('nombre'));
-        $this->db->set('apellidos', $this->input->post('apellidos')); 
-        $this->db->set('email', $this->input->post('email')); 
-        $this->db->set('nombre_login', $this->input->post('nombre_login')); 
-        if ($this->input->post('password_login'))
-            $this->db->set('password_login', $this->encrypt->sha1($this->input->post('password_login'))); 
-        //$this->db->set('fecha_alta', date('Y-m-d')); 
-        $this->db->set('fk_empresa_id', $this->input->post('fk_empresa_id'));       
-        $this->db->set('fk_perfil_id', $this->input->post('fk_perfil_id'));
-        $this->db->where('usuario_id', $id);
-        return $this->db->update('usuario');
+        $cipherpass = NULL;
+
+        $this->db->trans_start();                           
+
+            // editaron el password? 
+            // generar uno nuevo basado en el nombre login enviado
+            if ($this->input->post('password_login'))
+            {
+                $this->encryption->initialize(
+                    array(         
+                        'cipher' => 'aes-128',
+                        'mode' => 'cbc',
+                        'key' => $this->input->post('nombre_login'),
+                        'hmac_digest' => 'sha256'
+                    )
+                );
+                $cipherpass = $this->encryption->encrypt($this->input->post('password_login'));                
+            }
+            // no cambiaron el password pero puede que cambiaran el nombre del login
+            // y como el hash se genera basado en el nombre login debemos crear otro hash
+            else
+            {
+                // obtenemos el viejo password
+                $query = $this->db->get_where('usuario', array('usuario_id', $id), 1)->row();
+                $old_login_user = $query->nombre_login;
+
+                $this->encryption->initialize(
+                    array(         
+                        'cipher' => 'aes-128',
+                        'mode' => 'cbc',
+                        'key' => $old_login_user,
+                        'hmac_digest' => 'sha256'
+                    )
+                );
+                
+                $old_pass = $this->encryption->decrypt($query->password_login);
+
+                // creamos un nuevo password basado en el nuevo nombre login,
+                // pero mantenemos el mismo password antiguo para que el usuario 
+                // no deba cambiarlo
+                $this->encryption->initialize(
+                    array(         
+                        'cipher' => 'aes-128',
+                        'mode' => 'cbc',
+                        'key' => $this->input->post('nombre_login'),
+                        'hmac_digest' => 'sha256'
+                    )
+                );
+                $cipherpass = $this->encryption->encrypt($old_pass);
+            }
+
+
+            $this->db->set('nombre', $this->input->post('nombre'));
+            $this->db->set('apellidos', $this->input->post('apellidos')); 
+            $this->db->set('email', $this->input->post('email'));   
+            $this->db->set('password_login', $cipherpass);
+            $this->db->set('nombre_login', $this->input->post('nombre_login'));
+            //$this->db->set('fecha_alta', date('Y-m-d')); 
+            $this->db->set('fk_empresa_id', $this->input->post('fk_empresa_id'));       
+            $this->db->set('fk_perfil_id', $this->input->post('fk_perfil_id'));
+            $this->db->where('usuario_id', $id);
+            $query = $this->db->update('usuario');
+
+        $this->db->trans_complete();
+
+        if ( ($this->db->affected_rows() >= 1) OR $query === TRUE ) return TRUE; else return FALSE;
     }
 	
 	//-------------------------------------------------------------------------

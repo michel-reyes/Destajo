@@ -47,7 +47,7 @@ class Periodo_pago_m extends CI_Model {
              // Abrir periodo de pago
              
              $this->db->set('fecha_inicio_periodo_pago',  $str_fecha_inicio);
-             $this->db->set('fecha_final_periodo_pago', $str_fecha_cierre, $key);
+             $this->db->set('fecha_final_periodo_pago', $str_fecha_cierre);
              $this->db->set('perioro_pago_abierto', TRUE);
              $this->db->set('fondo_horario', number_to_mysql($this->input->post('fondo_horario')));
              $this->db->where('periodo_pago_id', 1);

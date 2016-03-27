@@ -23,7 +23,7 @@ class Auth extends CI_Controller {
 	public function __construct()
     {
         parent::__construct();
-		$this->load->library('encrypt');
+		$this->load->library('encryption');
         $this->load->model('auth_m');
 		// Almacenar nombre del modulo en cookie para poder acceder por jquery
 		$cookie = array(
@@ -116,7 +116,7 @@ class Auth extends CI_Controller {
 	{	       
 	    $response = array();
 	    $query = $this->auth_m->login();
-		if ($query->num_rows() <= 0)
+		if ($query === FALSE)
 		{
 			$response['status'] = "login_error";
 		}
