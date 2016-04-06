@@ -1,0 +1,5 @@
+SELECT `salida_cumplimiento_norma_id`, `producto`, `cumplimiento_norma`, `cumplimiento_norma_minorista`, `fecha_inicio_periodo_pago`, `fecha_final_periodo_pago`
+FROM `salida_cumplimiento_norma`
+WHERE `fecha_inicio_periodo_pago` >= '1456808400'
+AND `fecha_final_periodo_pago` <= '1459396800'
+ORDER BY `producto` ASC

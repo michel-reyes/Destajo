@@ -1,0 +1,5 @@
+SELECT `salida_salario_trabajador_id`, `chapa`, `ci`, `nombre`, `apellidos`, `horas_viaje`, `horas_viaje_m`, `importe_viaje`, `importe_viaje_m`, `cumplimiento_norma`, `cumplimiento_norma_m`, `horas_interrupto`, `horas_interrupto_m`, `horas_no_vinculado`, `horas_no_vinculado_m`, `horas_nocturnidad_corta`, `horas_nocturnidad_larga`, `horas_nocturnidad_corta_m`, `horas_nocturnidad_larga_m`, `cuantia_horaria_nocturnidad_corta`, `cuantia_horaria_nocturnidad_larga`, `cuantia_horaria_nocturnidad_corta_m`, `cuantia_horaria_nocturnidad_larga_m`, `fecha_inicio_periodo_pago`, `fecha_final_periodo_pago`
+FROM `salida_salario_trabajador`
+WHERE `fecha_inicio_periodo_pago` >= '1456808400'
+AND `fecha_final_periodo_pago` <= '1459396800'
+ORDER BY `chapa` ASC

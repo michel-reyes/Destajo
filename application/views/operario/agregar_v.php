@@ -17,7 +17,7 @@ DESTAJO-MODULE-END
         
         <div class="span3">
             <label for="chapa">Chapa</label>
-            <input type="text" name="chapa" id="chapa" /> 
+            <input type="text" name="chapa" id="chapa" maxlength="5" /> 
         </div>
     	    
         <div class="span3">

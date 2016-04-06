@@ -211,7 +211,7 @@ class Producto_m extends CI_Model {
         $this->db->set('producto', $this->input->post('producto'));
         $this->db->set('tipo', $this->input->post('tipo'));
         $this->db->where('m_producto_id', $id);
-        return $this->db->update('producto');
+        return $this->db->update('m_producto');
     }
 	
 	//-------------------------------------------------------------------------

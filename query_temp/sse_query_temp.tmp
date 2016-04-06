@@ -1,0 +1,5 @@
+SELECT `salida_salario_equipo_id`, `numero_operacional_equipo`, `numero_operacional_cuna`, `importe_viaje`, `fecha_inicio_periodo_pago`, `fecha_final_periodo_pago`
+FROM `salida_salario_equipo`
+WHERE `fecha_inicio_periodo_pago` >= '1456808400'
+AND `fecha_final_periodo_pago` <= '1459396800'
+ORDER BY `numero_operacional_equipo` ASC

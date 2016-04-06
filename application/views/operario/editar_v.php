@@ -18,7 +18,7 @@ DESTAJO-MODULE-END
         
         <div class="span3">
             <label for="chapa">Chapa</label>
-            <input type="text" name="chapa" id="chapa" value="<?php echo html_escape($ibi->chapa); ?>" /> 
+            <input type="text" maxlength="5" name="chapa" id="chapa" value="<?php echo html_escape($ibi->chapa); ?>" /> 
         </div>
 
         <div class="span3">

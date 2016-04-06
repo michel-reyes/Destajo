@@ -280,7 +280,7 @@ $( "#dialog-buscar" ).dialog({
         { 
             // Agregar regla de busqueda
             text: "",
-            title: "Añadir regla",
+            title: "Agregar regla",
             append :"<i class='icon-plus'></i>",
             addClass: "btn buscar-add-regla",
             click: function() { 
